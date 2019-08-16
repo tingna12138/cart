@@ -2,10 +2,9 @@ if (utils.getStorage("selectGoods")) {
     // 1.判断内存中是否有选中的数据，然后进行盒子的隐藏和显现
     $('.empty-tip').addClass('hidden');
     $('.item-list').removeClass('hidden');
-
+    var zindex;
     //2.获取数据，渲染页面
     utils.getStorage('selectGoods').forEach(function (item) {
-        var zindex;
         utils.getStorage('Goods').some(function (item1, index) {
             if (item.pID == item1.pID) {
                 //console.log(item.pID)   pID 是字符串
@@ -30,7 +29,7 @@ if (utils.getStorage("selectGoods")) {
             </div>
             <div class="cell col-1 tc lh70">
               <span>￥</span>
-              <em class="price" id="prod-price">${obj.price}</em>
+              <em class="price">${obj.price}</em>
             </div>
             <div class="cell col-1 tc lh70">
               <div class="item-count choose-amount">
@@ -51,14 +50,11 @@ if (utils.getStorage("selectGoods")) {
     })
     //3.点击加减号，文本框数据加减1，计算单项总价。并把改变结果重新保存到内存
     //3.1点击加号，文本框中的数值加1
-    utils.add(function(){
-        //当数值增加时，将增加后的值保存到内存中，同时，商品总价也跟随改变
-        var arr=utils.getStorage
-    });
+    utils.add(utils.computed);
     //3.2点击减号，文本框中的数值减1
-    utils.remove();
+    utils.remove(utils.computed);
     //3.3在文本框手动输入数值
-    utils.inputNumder();
+    utils.inputNumder(utils.computed);
 
 
     //4.计算所有选中商品的总数量和总价格

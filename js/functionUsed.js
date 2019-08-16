@@ -20,13 +20,30 @@ var utils = {
         }
         return obj;
     },
+    //******** */
+    computed: function (that) {
+        var arr = utils.getStorage('selectGoods') || [];
+        arr.some(function (item, index) {
+            if (item.id == that.parents('.item').data('id')) {
+                zindex = index;
+                return true;
+            }
+        })
+        arr[zindex].counts=that.parents('.choose-amount').find('input').val()-0;
+         utils.setStorage('selectGoods', arr);
+       
+        that.parents('.item').find('.computed').text(that.parents('.item').find('.price').text() * that.parents('.choose-amount').find('input').val());
+    },
+
     //点击加号，是文本框中的商品数值增加1
     add: function (fn) {
         $('.choose-amount .add').on('click', function () {
             $(this).siblings('input').val($(this).siblings('input').val() - 0 + 1);
-            $(this).next().removeClass('disabled');
-             //传入一个形参函数，方便添加代码
-            fn();
+            $(this).siblings('.reduce').removeClass('disabled');
+            var that = $(this)
+            //传入一个形参函数，方便添加代码
+            fn(that);
+            
         })
     },
     //点击减号，是文本框中的商品数值减少1
@@ -41,8 +58,9 @@ var utils = {
                 $(this).siblings('input').val('1');
                 $(this).addClass('disabled');
             }
+            var that = $(this)
             //传入一个形参函数，方便添加代码
-            fn();
+            fn(that);
         })
     },
     //文本框自身设置
@@ -50,11 +68,14 @@ var utils = {
         $('.choose-amount .choose-number').on('blur', function () {
             if ($(this).val() <= 1) {
                 $(this).val('1');
+                $(this).siblings('.reduce').addClass('disabled');
             } else {
                 $(this).siblings('.reduce').removeClass('disabled');
             }
+            var that = $(this)
             //传入一个形参函数，方便添加代码
-            fn();
+            fn(that);
+           
         })
     },
 }
