@@ -9,8 +9,14 @@ utils.getStorage("Goods").some(function(item,index){
     return true;
   }
 })
- console.log(utils.getStorage("Goods")[zindex])
-
+var select=utils.getStorage("Goods")[zindex];
+//1.3渲染页面
+//1.3.1放大镜图片模块
+$('.preview-wrap .preview-img img').attr('src',select.imgSrc);
+//1.3.2头部的标题 
+$('.itemInfo-wrap .sku-name').text(select.name);
+//1.3.3价格部分
+$('.summary-price .dd em').text('￥'+select.price)
 
 //2.产品型号选择部分增加动态效果
 
