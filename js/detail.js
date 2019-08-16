@@ -19,6 +19,9 @@ $('.itemInfo-wrap .sku-name').text(select.name);
 $('.summary-price .dd em').text('￥'+select.price)
 
 //2.产品型号选择部分增加动态效果
+$('.choose-item .dd a').on('click',function(){
+  $(this).addClass('current').siblings().removeClass('current');
+})
 
 //3.加减商品数量部分
 
