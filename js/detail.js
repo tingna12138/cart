@@ -1,59 +1,33 @@
-//1.从地址栏获取唯一标识，然后在从内存中找到相应的数据，来渲染页面
-//1.1从地址兰获取数据
-var obj = utils.getSearch();
-//1.2循环遍历内存，找想要的数据
-var zindex;
-utils.getStorage("Goods").some(function (item, index) {
-  if (item.pID == obj.pID) {
-    zindex = index;
-    return true;
-  }
-})
-var select = utils.getStorage("Goods")[zindex];
-//1.3渲染页面
-//1.3.1放大镜图片模块
-$('.preview-wrap .preview-img img').attr('src', select.imgSrc);
-//1.3.2头部的标题 
-$('.itemInfo-wrap .sku-name').text(select.name);
-//1.3.3价格部分
-$('.summary-price .dd em').text('￥' + select.price)
+//1.拿到内存中的数据渲染页面
+//获取搜索栏的参数，匹配内存中的数据
+var item = utils.getSpelStorage('Goods', location.search.slice(1).split('=')[1]);
+//渲染页面
+$('.preview-wrap .preview-img img').attr('src', item.imgSrc);
+$('.preview-wrap .preview-big-img img').attr('src', item.imgSrc);
+$('.itemInfo-wrap .sku-name').text(item.name);
+$('.summary-price .dd em').text('￥' + item.price);
 
-//2.产品型号选择部分增加动态效果
-$('.choose-item .dd a').on('click', function () {
+//2.款式选择部分实现
+$('.choose-item .choose-color,.choose-item .choose-style').on('click', function () {
   $(this).addClass('current').siblings().removeClass('current');
 })
 
-//3.加减商品数量部分
-//3.1点击加号，文本框中的数值加1
-utils.add();
-//3.2点击减号，文本框中的数值减1
- utils.remove();
-//3.3在文本框手动输入数值
-utils.inputNumder();
+//3.点击加减号部分,同时还可实现了手动在文本框中添加数据的功能
+utils.changeNum();
 
-
-//4.点击购物车触发跳转事件
-//4.1点击购物车，将页面的一些商品参数储存到内存中*********可修改
+//4.点击加入购物车，实现页面跳转
 $('.choose-btns .addshopcar').on('click', function () {
-  //4.1.1将商品参数封装到数组中
-  //找到或者在内存中创建一块储存区域
-  var selectGoods = utils.getStorage('selectGoods') || [];
-  var itemObj = {
-    id: selectGoods.length + 1,
-    pID: obj.pID,
-    counts:$('.choose-amount .choose-number').val()
+  var arr = utils.getStorage('selectGoods') || []
+  //将商品数据封装成对象
+  var obj = {
+    id :arr.length+1,
+    pID:item.pID,
+    counts:$('.choose-amount input').val()
   }
-  selectGoods.push(itemObj);
-  utils.setStorage('selectGoods', selectGoods);
-  //4.2跳转页面
+  //将对象追加到内存中
+  arr.push(obj);
+  utils.setStorage('selectGoods',arr);
+
+  //页面跳转
   location.assign('./cart.html');
 })
-
-
-
-
-
-
-// 总结：1.javascript:;与javascript:void(0);的区别
-//2.数量加减部分的禁用样式仅仅只是改变了鼠标的样式而已，并不能真正禁用a标签
-//3在js里面写链接时，无论它嵌入在那个文件夹，基础参照点都是以引入该js文件的html文件为准。这与css不同，css是以当前css文件所在路径为准

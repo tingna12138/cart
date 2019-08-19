@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: palegoldenrod;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <script src="./js/jquery-2.2.4.js"></script>
+    <script>
+        //*****简单数据的参数传递************
+        function add(index) {
+            index = index + 1;
+        };
+        var index = 2;
+        add(index); //会临时创建一块空间来存放从全局变量变量index那里复制来的值;跟全局变量index指向的不是同一个栈内存空间
+        console.log(index); //2
+
+        //*******this的指向问题*************
+        var obj = {
+            fn: function () {
+                console.log('这是obj对象函数里的this:');
+                console.dir(this);     //*******************************************指向box盒子
+                //    匿名自调用函数
+                (function () {
+                    console.log('是obj对象函数里的匿名自调用函数的this:');   //**********指向window
+                    console.dir(this);
+                }())
+            }
+        }
+        $('.box').on('click', function () {
+            console.log('这是事件处理函数里的this:');
+            console.dir(this);       //***********************************************指向Object
+            //    匿名自调用函数
+            (function () {
+                console.log('这是事件处理函数里的匿名自调用函数的this:');
+                console.dir(this);       //*******************************************指向window
+            }())
+            obj.fn();
+        })
+    </script>
+</body>
+
+</html>
