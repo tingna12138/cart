@@ -69,7 +69,48 @@ $('.preview-img').on('mousemove', function (event) {
   }
   //大盒子图片位置与遮罩盒子对应
   $('.preview-big-img img').css({
-    left:-parseFloat($('.preview-img .mask').css('left'))*300/100,
-    top:-parseFloat($('.preview-img .mask').css('top'))*300/100,
+    left: -parseFloat($('.preview-img .mask').css('left')) * 300 / 100,
+    top: -parseFloat($('.preview-img .mask').css('top')) * 300 / 100,
   })
 })
+
+//6.放大镜下面的小图动效
+//6.1更改左右箭头:从阿里巴巴上下载svg格式的图片；左右箭头各两组
+var ulLeft = parseFloat($('.list-item ul').css('margin-left'));
+//6.2点击左右两边的小箭头时，图片发生移动
+$('.arrow-prev').on('click', function () {
+  if (ulLeft > -($('.list-item li').width() * 2)) {
+    ulLeft = ulLeft - $('.list-item li').width();
+    $('.list-item ul').css('margin-left', ulLeft)
+  }
+  if (ulLeft == -($('.list-item li').width() * 2)) {
+    $(this).children('.active').addClass('hidden').siblings().removeClass('hidden');
+  }
+})
+$('.arrow-next').on('click', function () {
+  if (ulLeft < 0) {
+    ulLeft = ulLeft + ($('.list-item li').width());
+    $('.list-item ul').css('margin-left', ulLeft)
+  }
+  if(ulLeft==0){
+    $(this).children('.active').addClass('hidden').siblings().removeClass('hidden');
+  }
+})
+//6.3鼠标移到左右箭头上时，如果可点击就颜色变深
+$('.arrow-prev').hover(function () {
+  if (ulLeft > -($('.list-item li').width() * 2)) {
+    $(this).children('.active').removeClass('hidden').siblings().addClass('hidden');
+  }
+}, function () {
+  $(this).children('.active').addClass('hidden').siblings().removeClass('hidden');
+})
+
+$('.arrow-next').hover(function () {
+  if (ulLeft<0) {
+    $(this).children('.active').removeClass('hidden').siblings().addClass('hidden');
+  }
+}, function () {
+  $(this).children('.active').addClass('hidden').siblings().removeClass('hidden');
+})
+
+//问题：产品图怎么可以下载
