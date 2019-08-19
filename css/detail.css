@@ -14,7 +14,23 @@
 }
 /*放大镜预览模块*/
 .preview-wrap {
+  position: relative;
   width: 400px;
+}
+.preview-big-img {
+  position: absolute;
+  top:0;
+  right:-500px;
+  z-index: 100;
+  width: 500px;
+  height: 500px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+}
+.preview-big-img img {
+  position: absolute;
+  width: 800px;
+  height: 800px;
 }
 .preview-img {
   position: relative;
@@ -36,7 +52,6 @@
    background: rgba(255, 255, 0, 0.3);
    /*鼠标变成移动样式效果*/
    cursor: move;
-   display: none;
 }
 .preview-list {
   position: relative;
@@ -270,4 +285,8 @@
 }
 .tab-con-img {
   text-align: center;
+}
+
+.hidden {
+  display: none;
 }
