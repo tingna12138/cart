@@ -112,5 +112,12 @@ $('.arrow-next').hover(function () {
 }, function () {
   $(this).children('.active').addClass('hidden').siblings().removeClass('hidden');
 })
+//6.4鼠标移入哪个小图，哪个小图变成选中状态。同时放大镜盒子里的大图也变成该图
+$('.list-item li').hover(function(){
+  //6.4.1鼠标移入哪个小图，哪个小图变成选中状态。
+  $(this).addClass('hovers').siblings().removeClass('hovers');
+  $('.preview-img img').attr('src',$(this).data('src'));
+  $('.preview-big-img img').attr('src',$(this).data('src'));
+})
 
 //问题：产品图怎么可以下载
