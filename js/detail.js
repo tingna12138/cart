@@ -120,4 +120,5 @@ $('.list-item li').hover(function(){
   $('.preview-big-img img').attr('src',$(this).data('src'));
 })
 
-//问题：产品图怎么可以下载
+
+//京东购物车，数据在完全加载出来前，一直处于加载状态

@@ -35,3 +35,7 @@ function changeTitle(arr) {
 }
 var arr1=['百图大牌日','分千万金豆','金六福喜酒']
 var timer1 = setInterval(changeTitle.bind(window,arr1), 3000);
+
+//3.banner图
+//轮播样式：淡入淡出
+var focus=$()

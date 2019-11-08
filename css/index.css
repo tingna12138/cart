@@ -10,6 +10,9 @@
   width: 721px;
   height: 455px;
 }
+.focus ul {
+  position: absolute;
+}
 .focus-prev,
 .focus-next {
   position: absolute;
@@ -218,5 +221,8 @@
 }
 .floor-bd {
   overflow: hidden;
+}
+.hidden {
+  display: none;
 }
 
